@@ -1,0 +1,766 @@
+/* ========== Global Styles ========== */
+:root {
+    --primary-color: #4a6ee0;
+    --secondary-color: #6c757d;
+    --accent-color: #ff6b6b;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ========== Loader ========== */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--light-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: var(--transition);
+}
+
+.loader-outter {
+    width: 80px;
+    height: 80px;
+    border: 5px solid var(--primary-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loader-inner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--accent-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite reverse;
+    position: absolute;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========== Header & Navigation ========== */
+.header {
+    background: #fff !important; /* trùng nền logo */
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    padding: 15px 0;
+}
+
+.header.scrolled {
+    padding: 8px 0;
+}
+
+.logo img {
+    height: 55px; /* chỉnh lớn hơn để cân UI */
+    width: auto;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.header.scrolled .logo img {
+    height: 40px;
+}
+
+.navbar-nav .nav-link {
+    color: var(--dark-color) !important;
+    font-weight: 500;
+    padding: 8px 15px !important;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: var(--transition);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--primary-color) !important;
+    background: rgba(74, 110, 224, 0.1);
+}
+
+
+.search_btn {
+    position: relative;
+}
+
+.search-box {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    display: none;
+    min-width: 300px;
+    z-index: 1000;
+}
+
+.search-box.show {
+    display: flex;
+    gap: 10px;
+}
+
+/* ========== Hero Slider ========== */
+.home-cover {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+}
+
+.cover_slider {
+    height: 100%;
+}
+
+.cover_item {
+    height: 100vh;
+    min-height: 600px;
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative;
+}
+
+.cover_item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+}
+
+.slider_content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+.slider-content-inner {
+    width: 100%;
+}
+
+.cover-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.cover-xl-text {
+    font-size: 4rem;
+    font-weight: 700;
+    color: white;
+    display: block;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.cover-date {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+}
+
+.cover_nav {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.cover_dots {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+.cover_dots li {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.cover_dots li span {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.cover_dots li.active span {
+    background: var(--primary-color);
+    transform: scale(1.3);
+}
+
+/* ========== Buttons ========== */
+.btn {
+    padding: 12px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background: #3a5bd0;
+    border-color: #3a5bd0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 110, 224, 0.3);
+}
+
+.btn-rounded {
+    border-radius: 50px;
+}
+
+/* ========== Event Info Section ========== */
+.pt100 { padding-top: 100px; }
+.pb100 { padding-bottom: 100px; }
+.pt70 { padding-top: 70px; }
+.pb70 { padding-bottom: 70px; }
+
+.icon_box_two {
+    text-align: center;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    height: 100%;
+}
+
+.icon_box_two:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.icon_box_two i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.icon_box_two .box_title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ========== Countdown Section ========== */
+.bg-img {
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative;
+}
+
+/* Lớp phủ nền tối */
+.overlay_dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1; /* để chữ và countdown nổi lên trên */
+}
+
+/* Chữ trắng */
+.color-light {
+    color: #fff !important;
+}
+
+/* Đẩy nội dung lên trên overlay */
+.bg-img .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Countdown box */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.countdown > div {
+    text-align: center;
+    background: rgba(250, 248, 248, 0.961);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px 15px;
+    min-width: 100px;
+}
+
+.countdown > div span {
+    display: block;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+/*========= About Section ========== */
+.section_title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section_title .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section_title .title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--primary-color);
+}
+
+.icon_box_one {
+    text-align: center;
+    padding: 40px 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    height: 100%;
+}
+
+.icon_box_one:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.icon_box_one i {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.icon_box_one h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* ========== Speakers Section ========== */
+.speaker_box {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.speaker_img {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+}
+
+.speaker_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.speaker_box:hover .speaker_img img {
+    transform: scale(1.1);
+}
+
+.speaker_img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    z-index: 1;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.speaker_box:hover .speaker_img::before {
+    opacity: 1;
+}
+
+.info_box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    z-index: 2;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.speaker_box:hover .info_box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.info_box .name {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.info_box .position {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* ========== Pricing Section ========== */
+.pricing-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+    text-align: center;
+    height: 100%;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.pricing-card.featured {
+    border: 2px solid var(--primary-color);
+    transform: scale(1.05);
+}
+
+.pricing-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 30px 20px;
+}
+
+.pricing-header h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pricing-header .price {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 15px 0;
+}
+
+.pricing-header .period {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.pricing-features {
+    padding: 30px;
+    list-style: none;
+}
+
+.pricing-features li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+/* ========== Calendar Section ========== */
+/* ================== EVENT CALENDAR ================== */
+.event_img img{
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+/* Cột ngày */
+.event_date{
+    text-align:center;
+    font-size:26px;
+    font-weight:700;
+    color:#333;
+}
+.event_date span{
+    display:block;
+    font-size:12px;
+    color:#777;
+    margin-top:3px;
+}
+
+/* Nội dung */
+.event_info h5{font-size:18px;margin-bottom:6px;}
+.event_info h6{font-size:14px;color:#555;margin-bottom:6px;}
+.event_info p{font-size:14px;color:#888;margin:0}
+
+/* Nút */
+.event_actions a{
+    padding:10px 20px;
+    font-size:14px;
+    border-radius:30px;
+    margin:5px;
+    text-decoration:none;
+    font-weight:600;
+    display:inline-block;
+}
+.btn_detail{background:#4361ee;color:white;}
+.btn_detail:hover{opacity:0.85;}
+
+.btn_buy{color:#e63946;text-decoration:underline;}
+.btn_buy:hover{opacity:.7;}
+
+/* ========== Footer ========== */
+footer {
+    background: var(--dark-color);
+    color: var(--light-color);
+    padding: 80px 0 40px;
+}
+
+.footer_box {
+    margin-bottom: 30px;
+}
+
+.footer_header {
+    margin-bottom: 25px;
+}
+
+.footer_logo img {
+    height: 40px;
+}
+
+.footer_title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.footer_box_body p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+
+.footer_social {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer_social li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer_social li a:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.instagram_list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.instagram_list li {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.instagram_list li a {
+    display: block;
+    transition: var(--transition);
+}
+
+.instagram_list li a:hover {
+    transform: scale(1.05);
+}
+
+.instagram_list li img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.newsletter_form input {
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.newsletter_form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ========== Copyright Footer ========== */
+.copyright_footer {
+    background: #1a1a1a;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+
+.footer_menu {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer_menu li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer_menu li a:hover {
+    color: var(--primary-color);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 992px) {
+    .cover-xl-text {
+        font-size: 3rem;
+    }
+    
+    .section_title .title {
+        font-size: 2rem;
+    }
+    
+    .footer_menu {
+        justify-content: center;
+        margin-top: 15px;
+    }
+    
+    .copyright_footer .row > div {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .cover-xl-text {
+        font-size: 2.5rem;
+    }
+    
+    .countdown > div {
+        min-width: 80px;
+    }
+    
+    .event_date {
+        min-width: 100px;
+    }
+    
+    .btn {
+        padding: 10px 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .cover-xl-text {
+        font-size: 2rem;
+    }
+    
+    .cover-title {
+        font-size: 1rem;
+    }
+    
+    .section_title .title {
+        font-size: 1.8rem;
+    }
+    
+    .countdown {
+        gap: 10px;
+    }
+    
+    .countdown > div {
+        min-width: 70px;
+        padding: 15px 10px;
+    }
+    
+    .footer_social {
+        justify-content: center;
+    }
+}
