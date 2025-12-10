@@ -764,3 +764,146 @@ footer {
         justify-content: center;
     }
 }
+/* ========== Hero Slider – EXACT MATCH WITH YOUR IMAGE ========== */
+.home-cover {
+    height: 100vh;
+    min-height: 680px;
+    position: relative;
+}
+
+.cover_item {
+    height: 100vh;
+    min-height: 680px;
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative;
+}
+
+/* Overlay tối + gradient giống ảnh */
+.cover_item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
+}
+
+/* Nội dung nằm trên overlay */
+.slider_content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Tiêu đề nhỏ */
+.cover-title {
+    font-size: 1.8rem !important;
+    font-weight: 400;
+    letter-spacing: 4px;
+    opacity: 0.9;
+}
+
+/* Từ CONFERENCE đỏ */
+.cover-main {
+    font-size: 9rem !important;
+    font-weight: 900 !important;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.red-text {
+    color: #e53935 !important;
+    font-size: 9.5rem !important;
+    text-shadow: 0 0 30px rgba(229,57,53,0.6);
+}
+
+/* Ngày tháng */
+.cover-date {
+    font-size: 1.4rem !important;
+    letter-spacing: 3px;
+    opacity: 0.85;
+}
+
+/* Nút đỏ giống hệt */
+.btn-danger {
+    background-color: #e53935 !important;
+    border-color: #e53935 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 2px;
+    box-shadow: 0 10px 30px rgba(229,57,53,0.4);
+}
+
+.btn-danger:hover {
+    background-color: #c62828 !important;
+    transform: translateY(-3px);
+}
+
+/* Decorative X, O, + */
+.deco-shape {
+    position: absolute;
+    font-size: 4rem;
+    font-weight: bold;
+    opacity: 0.7;
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+}
+
+.deco-plus-1 { top: 15%; left: 10%; color: #9c27b0; }
+.deco-x-1    { top: 20%; left: 25%; color: #e53935; transform: rotate(15deg); }
+.deco-o-1    { top: 12%; right: 12%; color: #9c27b0; font-size: 6rem; }
+.deco-x-2    { bottom: 30%; left: 8%; color: #e53935; transform: rotate(-20deg); }
+.deco-o-2    { bottom: 15%; right: 8%; color: #e53935; font-size: 5rem; opacity: 0.6; }
+.deco-x-3    { bottom: 35%; right: 20%; color: #9c27b0; transform: rotate(30deg); }
+
+/* Dots giống hệt */
+.cover_dots li span {
+    width: 14px;
+    height: 14px;
+    background: rgba(255,255,255,0.4);
+    border: 2px solid transparent;
+}
+
+.cover_dots li.active span {
+    background: transparent;
+    border-color: #9c27b0;
+    transform: scale(1.4);
+}
+
+/* Header trong hero (khi scroll sẽ thay đổi ở JS) */
+.header.transparent {
+    background: transparent !important;
+    box-shadow: none;
+}
+
+.header.transparent .navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 600;
+}
+
+.header.transparent .navbar-nav .nav-link:hover,
+.header.transparent .navbar-nav .nav-link.active {
+    color: #e53935 !important;
+    background: transparent;
+}
+
+.header.transparent .logo img {
+    filter: brightness(0) invert(1);
+}
+
+/* Responsive cho chữ lớn */
+@media (max-width: 1200px) {
+    .cover-main { font-size: 7rem !important; }
+    .red-text { font-size: 7.5rem !important; }
+}
+@media (max-width: 992px) {
+    .cover-main { font-size: 5.5rem !important; }
+    .red-text { font-size: 6rem !important; }
+}
+@media (max-width: 768px) {
+    .cover-main { font-size: 4rem !important; }
+    .red-text { font-size: 4.5rem !important; }
+    .cover-title { font-size: 1.4rem !important; }
+}
