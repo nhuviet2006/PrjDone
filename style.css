@@ -907,3 +907,58 @@ footer {
     .red-text { font-size: 4.5rem !important; }
     .cover-title { font-size: 1.4rem !important; }
 }
+* ========== OUR PARTNERS SECTION ========== */
+#partners {
+    background: #f8f9fa;
+}
+
+#partners h2 {
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: 1px;
+}
+
+.underline-red {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    width: 30px;
+    height: 4px;
+    background: #e53935;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .underline-red {
+        left: 50%;
+        top: auto;
+        bottom: -15px;
+        transform: translateX(-50%);
+        width: 50px;
+    }
+}
+
+.partner-logo {
+    text-align: center;
+    transition: all 0.4s ease;
+    padding: 20px;
+    opacity: 0.75;
+}
+
+.partner-logo:hover {
+    transform: translateY(-10px);
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.partner-logo img {
+    max-height: 90px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: all 0.4s ease;
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%);
+}
