@@ -126,7 +126,7 @@ Frontend dùng `message` để hiển thị thông báo lỗi.
 
 ---
 
-## 9. Ghi chú cho Frontend và đồ án
+## 9. Ghi chú
 Frontend chỉ cần Swagger UI và README này để tích hợp API, không cần đọc code backend. Backend áp dụng mô hình Controller – Service, JWT Authentication, Prisma Migration và Swagger Documentation, đáp ứng yêu cầu đồ án và làm việc nhóm Frontend – Backend.
 =======
 # event-web
