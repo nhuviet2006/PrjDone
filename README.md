@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # BACKEND API – Authentication & Event Management
 
 ## 1. Giới thiệu
@@ -131,3 +132,6 @@ Frontend chỉ cần Swagger UI và README này để tích hợp API, không c�
 # event-web
 dự án web sự kiện
 >>>>>>> 61dff64572492a1a36178545d662ccb30733ccb9
+=======
+# baitaplon-web
+>>>>>>> a460443823d60f452f5e173cc26f940ab229627a

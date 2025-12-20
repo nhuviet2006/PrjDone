@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento Conference</title>
+    <link rel="stylesheet" href="event.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="slider-wrapper"> 
+        
+        <header class="header">
+            <div class="logo">Evento<span>.</span></div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">SPEAKERS</a></li>
+                    <li><a href="#">EVENTS</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="search-icon">&#9906;</div>
+        </header>
+        <div class="search-bar" id="search-bar">
+            <input type="text" placeholder="Nhập từ khóa tìm kiếm...">
+            <button>Tìm kiếm</button>
+        </div>
+        
+        <div class="hero-section active-slide" id="slide-1" 
+             style="background-image: url('https://i.pinimg.com/1200x/9f/0f/82/9f0f822cfb033ada3ed69513506a13b9.jpg');">
+            
+            <div class="hero-content">
+                <p class="subtitle">PREPARE YOURSELF FOR THE</p>
+                <h1 class="title">CONFERENCE</h1>
+                <p class="date-location">12-14 JANUARY 2026 - LOS ANGELES, CA.</p>
+                <a href="#" class="btn-buy-tickets">BUY TICKETS NOW</a>
+            </div>
+        </div> 
+        
+        <div class="hero-section" id="slide-2" 
+             style="background-image: url('https://i.pinimg.com/1200x/e4/09/50/e409507faeda3fbccbf5b034fb345196.jpg');">
+            
+            <div class="hero-content">
+                <p class="subtitle">LEARN FROM THE BEST AT THE</p>
+                <h1 class="title">WORKSHOP</h1>
+                <p class="date-location">15 MARCH 2018 - SAN DIEGO, CA.</p>
+                <a href="#" class="btn-buy-tickets">REGISTER TODAY</a>
+            </div>
+        </div>
+
+        <div class="hero-section" id="slide-3" 
+             style="background-image: url('https://i.pinimg.com/1200x/d1/1f/3c/d11f3cc242e47c028848bfab41a55636.jpg');">
+            
+            <div class="hero-content">
+                <p class="subtitle">THE GREATEST NIGHT OF</p>
+                <h1 class="title">MUSIC FESTIVAL</h1>
+                <p class="date-location">14 FEBRUARY 2026 - PRIVATE VENUE.</p>
+                <a href="#" class="btn-buy-tickets">GET INVITED</a>
+            </div>
+        </div>
+        
+        <div class="slider-indicators"> 
+             <span class="dot active" data-target="slide-1">1</span>
+             <span class="dot" data-target="slide-2">2</span>
+             <span class="dot" data-target="slide-3">3</span>
+        </div>
+        
+    </div> 
+
+    <section class="countdown-section">
+        <div class="container">
+            <h2>Counter until the big event</h2>
+            <div class="timer-wrapper">
+                <div class="timer-box">
+                    <span class="number">00</span>
+                    <span class="label">Weeks</span>
+                </div>
+                <div class="timer-box">
+                    <span class="number">00</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="timer-box">
+                    <span class="number">00</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="timer-box">
+                    <span class="number">00</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="timer-box">
+                    <span class="number">00</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="event.js"></script>
+
+</body>
+</html>
