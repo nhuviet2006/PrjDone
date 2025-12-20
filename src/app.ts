@@ -3,6 +3,8 @@ import express from "express";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import dotenv from "dotenv";
+import cors from "cors";
+
 
 // Import Routes
 import eventRoutes from './routes/eventRoutes';
@@ -43,7 +45,7 @@ const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.json());
-
+app.use(cors());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use('/api/events', eventRoutes);

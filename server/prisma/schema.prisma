@@ -8,13 +8,16 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  email        String         @unique
-  password     String
-  role         String         @default("USER")
-  createdAt    DateTime       @default(now())
-  tickets      Ticket[] // Một người có thể mua nhiều vé
-  RefreshToken RefreshToken[]
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  email     String   @unique
+  password  String
+  role      String   @default("USER")
+  createdAt DateTime @default(now())
+
+  // Relations
+  refreshTokens RefreshToken[]
+  tickets       Ticket[]
 }
 
 model RefreshToken {
@@ -40,12 +43,12 @@ model Event {
 }
 
 model Ticket {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  eventId   Int
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  eventId     Int
   purchasedAt DateTime @default(now())
 
   // Khóa ngoại
-  user      User     @relation(fields: [userId], references: [id])
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }

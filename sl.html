@@ -1,87 +1,87 @@
+<<<<<<< HEAD:sl.html
 <!--file đăng ký, đăng nhập -->
+=======
+>>>>>>> 9374b88 (feat(auth): add fullName signup, fix prisma schema, improve auth UI):client/sl.html
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Signup Form</title>
-    <link rel="stylesheet" href="sl.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>VTTP | Login & Signup</title>
+
+  <link rel="stylesheet" href="sl.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
-
 <body>
-    <div class="container">
-        <!--form đăng nhập-->
-        <div class="form-box login">
-            <form action="#">
-                <h1>Login</h1>
-                <div class="input-box">
-                    <input type="text" placeholder="Username" required>
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Password" required>
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div class="forget-link">
-                    <a href="#">Forget Password</a>
-                </div>
-                <button type="submit" class="btn">Login</button>
-                <p>Or login with social platform</p>
-                <div class="social-icons">
-                    <div class="social-icons">
-                        <a href="#"><i class="fa-brands fa-google"></i></a> 
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a> 
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a> 
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!--form đăng ký-->
-        <div class="form-box signup">
-            <form action="#">
-                <h1>Signup</h1>
-                <div class="input-box">
-                    <input type="email" placeholder="Email" required>
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Password" required>
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div class="forget-link">
-                    <a href="#">Forget Password</a>
-                </div>
-                <button type="submit" class="btn">Signup</button>
-                <p>Or signup with social platform</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-google"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                </div>
-            </form>
-        </div>
-        <!--hộp chuyển đổi -->
-        <div class="toggle-box">
-            <!--hộp chuyển đổi sang phải-->
-            <div class="toggle-panel toggle-right">
-                <h1>Welcome back</h1>
-                <p>Already have an account?</p>
-                <button class="btn login-btn">Login</button>
-            </div>
-            <!--hộp chuyển đổi sang trái-->
-            <div class="toggle-panel toggle-left">
-                <h1>Hello, Welcome!</h1>
-                <p>Don't have an account?</p>
-                <button class="btn signup-btn">Signup</button>
-            </div>
-        </div>
-    </div>
-</body>
-<script src="sl.js"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 
+<div class="page-bg"></div>
+
+<div class="brand">
+  <h1>VTTP</h1>
+  <p>Event Management Platform</p>
+</div>
+
+<div class="auth-box">
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" id="loginTab">LOGIN</div>
+    <div class="tab" id="signupTab">SIGN UP</div>
+  </div>
+
+  <!-- LOGIN -->
+  <form class="form active" id="loginForm" autocomplete="off">
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="email" name="email" placeholder="Email" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="password" placeholder="Password" required />
+    </div>
+
+    <button type="submit" class="btn">LOGIN</button>
+  </form>
+
+  <!-- SIGNUP -->
+  <form class="form" id="signupForm" autocomplete="off">
+    <div class="input-box">
+      <i class="fa fa-user"></i>
+      <input type="text" name="fullName" placeholder="Full Name" required />
+    </div>
+
+    <!-- <div class="input-box">
+        <i class="fa fa-id-card"></i>
+        <input
+            type="text"
+            name="fullName"
+            placeholder="Full name"
+            required
+        />
+    </div> -->
+
+
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="email" name="email" placeholder="Email" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="password" placeholder="Password" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="confirm" placeholder="Confirm Password" required />
+    </div>
+
+    <button type="submit" class="btn">SIGN UP</button>
+  </form>
+
+</div>
+
+<script src="sl.js"></script>
+</body>
 </html>
