@@ -3,24 +3,31 @@ import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env.JWT_SECRET || 'sieubaomat';
 
-// Định nghĩa kiểu dữ liệu để các file khác có thể dùng lại
-export interface AuthRequest extends Request {
-  user?: any;
+export interface UserPayload {
+  userId: number;
+  email: string;
+  role: string;
 }
 
-export const authenticate = (req: AuthRequest, res: Response, next: NextFunction) => {
-  // Lấy token từ header (Bearer token...)
-  const token = req.header('Authorization')?.replace('Bearer ', '');
+export interface AuthRequest extends Request {
+  user?: UserPayload;
+}
+
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.header('Authorization');
+  const token = authHeader && authHeader.replace('Bearer ', '');
 
   if (!token) {
     return res.status(401).json({ message: 'Bạn chưa đăng nhập!' });
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded; // Lưu thông tin user vào request
-    next(); // Cho phép đi tiếp
+    const decoded = jwt.verify(token, SECRET_KEY) as UserPayload;
+    
+    (req as AuthRequest).user = decoded; 
+    
+    next();
   } catch (err) {
-    res.status(401).json({ message: 'Token không hợp lệ' });
+    res.status(403).json({ message: 'Token không hợp lệ hoặc đã hết hạn' });
   }
 };

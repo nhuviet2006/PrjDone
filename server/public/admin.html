@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evento Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #e50914; --dark-bg: #141414; --dark-panel: #1f1f1f; --text: #ffffff; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--dark-bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 250px; background: #000; padding: 20px; border-right: 1px solid #333; display: flex; flex-direction: column; }
+        .logo { font-size: 24px; font-weight: 800; color: white; margin-bottom: 40px; }
+        .logo span { color: var(--primary); }
+        .menu-item { padding: 15px; cursor: pointer; color: #aaa; border-radius: 8px; margin-bottom: 5px; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+        .menu-item:hover, .menu-item.active { background: var(--primary); color: white; }
+        
+        /* MAIN CONTENT */
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .section { display: none; animation: fadeIn 0.3s; }
+        .section.active { display: block; }
+        h2 { border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; display: inline-block; }
+
+        /* FORM STYLE */
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; color: #ddd; }
+        .form-control { width: 100%; padding: 12px; background: #2b2b2b; border: 1px solid #444; color: white; border-radius: 5px; font-family: inherit; }
+        .form-control:focus { outline: none; border-color: var(--primary); }
+        
+        /* UPLOAD AREA */
+        .upload-wrapper { border: 2px dashed #444; padding: 20px; text-align: center; border-radius: 10px; background: #1a1a1a; margin-bottom: 20px; transition: 0.3s; }
+        .upload-wrapper:hover { border-color: var(--primary); background: #222; }
+        #previewImg { max-height: 250px; width: auto; display: none; margin: 10px auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+
+        .row { display: flex; gap: 20px; }
+        .col { flex: 1; }
+
+        /* EDITOR */
+        #editor-container { height: 300px; background: #2b2b2b; color: white; border: 1px solid #444; }
+        .ql-toolbar { background: #ddd; color: black; border-radius: 5px 5px 0 0; }
+        .ql-container { border-radius: 0 0 5px 5px; font-size: 16px; }
+
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 20px; width: 100%; }
+        .btn-submit:hover { background: #ff3333; }
+
+        /* DELETE LIST */
+        .event-item { background: var(--dark-panel); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--primary); }
+        .btn-delete { background: #ff4444; color: white; padding: 5px 15px; border: none; border-radius: 5px; cursor: pointer; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">Evento<span>.</span> Admin</div>
+        <div class="menu-item active" onclick="switchTab('add-tab')"><i class="fa-solid fa-plus-circle"></i> Thêm Sự Kiện</div>
+        <div class="menu-item" onclick="switchTab('list-tab')"><i class="fa-solid fa-list-check"></i> Quản lý & Xóa</div>
+        <div class="menu-item" onclick="switchTab('admin-tab')"><i class="fa-solid fa-user-shield"></i> Cấp quyền Admin</div>
+        <div class="menu-item" onclick="window.location.href='event.html'"><i class="fa-solid fa-arrow-left"></i> Về Trang Chủ</div>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="add-tab" class="section active">
+            <h2>Thêm Sự Kiện Mới</h2>
+            <form id="addEventForm">
+                
+                <div class="form-group">
+                    <label class="form-label">Poster Sự Kiện (Tải từ máy)</label>
+                    <div class="upload-wrapper">
+                        <input type="file" id="eventImageFile" accept="image/*" class="form-control" style="display: none;" onchange="previewFile()">
+                        <button type="button" class="btn-submit" style="width: auto; margin: 0;" onclick="document.getElementById('eventImageFile').click()">
+                            <i class="fa-solid fa-upload"></i> Chọn Ảnh
+                        </button>
+                        <br>
+                        <img id="previewImg" src="">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Tên Sự Kiện</label>
+                        <input type="text" id="evTitle" class="form-control" required placeholder="VD: Music Festival">
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Diễn giả / Speaker</label>
+                        <input type="text" id="evSpeaker" class="form-control" required placeholder="VD: Sơn Tùng MTP">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col">
+                        <label class="form-label">Ngày</label>
+                        <input type="number" id="evDate" class="form-control" required placeholder="15">
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Tháng</label>
+                        <input type="number" id="evMonth" class="form-control" required placeholder="01">
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Thời gian</label>
+                        <input type="text" id="evTime" class="form-control" required placeholder="09:00 AM - 11:00 AM">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col">
+                        <label class="form-label">Số lượng vé phát hành</label>
+                        <input type="number" id="evTotalTickets" class="form-control" required placeholder="VD: 500">
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Giá vé</label>
+                        <input type="number" id="evPrice" class="form-control" required placeholder="VD: 99">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label class="form-label">Địa điểm</label>
+                    <input type="text" id="evLocation" class="form-control" required placeholder="Hà Nội, Việt Nam">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mô tả chi tiết sự kiện</label>
+                    <div id="editor-container"></div> 
+                </div>
+
+                <button type="submit" class="btn-submit">Đăng Sự Kiện</button>
+            </form>
+        </div>
+
+        <div id="list-tab" class="section">
+            <h2>Sự kiện bạn đã tạo</h2>
+            <div id="myEventList">
+                <p style="color: #aaa;">Đang tải...</p>
+            </div>
+        </div>
+
+        <div id="admin-tab" class="section">
+            <h2>Cấp quyền Admin</h2>
+            <div class="form-group">
+                <label class="form-label">Email tài khoản cần cấp quyền</label>
+                <input type="email" id="adminEmail" class="form-control" placeholder="user@example.com">
+            </div>
+            <button onclick="grantAdmin()" class="btn-submit" style="width: auto;">Xác nhận cấp quyền</button>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+</html>

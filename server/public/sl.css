@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #050505;
+    --panel-color: #121212;
+    --primary-color: #e50914; /* Đỏ Neon */
+    --primary-glow: rgba(229, 9, 20, 0.5);
+    --text-color: #fff;
+    --input-bg: #1f1f1f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #2a0000 0%, #000000 100%);
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 850px;
+    height: 550px;
+    background: var(--panel-color);
+    border-radius: 30px;
+    box-shadow: 0 0 20px var(--primary-glow);
+    overflow: hidden;
+    margin: 20px;
+    border: 1px solid #333;
+}
+
+/* --- FORM BOX STYLE --- */
+.form-box {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    transition: all 0.6s ease-in-out;
+}
+
+.form-box.login {
+    left: 0;
+    z-index: 2;
+}
+
+.form-box.signup {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* --- ACTIVE STATE FOR FORMS --- */
+/* Khi active: Form Login trượt sang phải và biến mất */
+.container.active .form-box.login {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Khi active: Form Signup hiện lên và trượt vào vị trí bên phải */
+.container.active .form-box.signup {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move {
+    0%, 49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+/* --- INPUT STYLE --- */
+form { width: 100%; }
+h1 { font-size: 36px; margin-bottom: 10px; color: var(--primary-color); text-align: center; text-shadow: 0 0 10px var(--primary-glow); }
+.input-box { position: relative; width: 100%; height: 50px; margin: 20px 0; }
+.input-box input { width: 100%; height: 100%; background: var(--input-bg); border: 1px solid #444; border-radius: 40px; font-size: 16px; color: #fff; padding: 0 45px 0 20px; outline: none; transition: 0.3s; }
+.input-box input:focus { border-color: var(--primary-color); box-shadow: 0 0 10px var(--primary-glow); }
+.input-box i { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #888; }
+.btn { width: 100%; height: 45px; background: var(--primary-color); border: none; border-radius: 40px; box-shadow: 0 0 10px var(--primary-glow); cursor: pointer; font-size: 16px; color: #fff; font-weight: 600; margin-top: 10px; transition: 0.3s; }
+.btn:hover { background: #ff3333; box-shadow: 0 0 20px var(--primary-glow); }
+.social-icons { margin: 20px 0; text-align: center; }
+.social-icons a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border: 1px solid var(--primary-color); border-radius: 50%; color: var(--primary-color); text-decoration: none; margin: 0 5px; transition: 0.3s; }
+.social-icons a:hover { background: var(--primary-color); color: #fff; }
+p { color: #ccc; font-size: 14px; margin-top: 10px; text-align: center; }
+.forget-link { text-align: center; margin-bottom: 15px; } 
+.forget-link a { color: #aaa; text-decoration: none; }
+
+/* --- TOGGLE BOX (KHỐI ĐỎ DI CHUYỂN) --- */
+.toggle-box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 30px; /* Bo tròn theo container */
+    z-index: 100;
+}
+
+.toggle-box::before {
+    content: '';
+    position: absolute;
+    background: linear-gradient(to right, #000, #500000);
+    height: 100%;
+    width: 200%;
+    left: -100%;
+    border-radius: 30px;
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle-box {
+    transform: translateX(-100%);
+    border-radius: 30px; 
+}
+
+.container.active .toggle-box::before {
+    left: 0;
+}
+
+/* --- TOGGLE PANEL TEXT --- */
+.toggle-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+    padding: 0 30px;
+}
+
+/* Panel Trái (Welcome Back - Login) */
+.toggle-left {
+    transform: translateX(-200%);
+}
+
+.container.active .toggle-left {
+    transform: translateX(0);
+}
+
+/* Panel Phải (Hello Friend - Signup) */
+.toggle-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.active .toggle-right {
+    transform: translateX(200%);
+}
+
+.toggle-panel .btn {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 130px;
+    box-shadow: none;
+}
+.toggle-panel .btn:hover {
+    background: #fff;
+    color: #000;
+}

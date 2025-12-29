@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento Conference</title>
+    <link rel="stylesheet" href="event.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="slider-wrapper">
+        <header class="header">
+            <div class="logo">Evento<span>.</span></div>
+
+            <nav class="nav-menu" style="flex-grow: 1; display: flex; justify-content: center;"> 
+                <ul>
+                    <li><a href="event.html">Trang chủ</a></li>
+                    <li><a href="#events">Lịch sự kiện</a></li>
+                    <li><a href="#news">Tin tức & Ưu đãi</a></li>
+                </ul>
+            </nav>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="search-icon" style="cursor: pointer; font-size: 20px; color: white;">&#9906;</div>
+            <div class="auth-box" id="authBox"></div>
+        </div>
+    </header>
+
+                <div class="search-icon" style="margin-left: 15px;">&#9906;</div>
+        </header>
+        <div class="search-bar" id="search-bar">
+            <input type="text" placeholder="Nhập từ khóa tìm kiếm...">
+            <button>Tìm kiếm</button>
+        </div>
+
+        <div class="hero-section active-slide" id="slide-1"
+            style="background-image: url('img/slide1.jpg');">
+
+            <div class="hero-content">
+                <p class="subtitle">A LARGE-SCALE TECHNOLOGY EVENT </p>
+                <h1 class="title">INNOVATEX</h1>
+                <p class="date-location">12-14 JANUARY 2026 - LOS ANGELES, CA.</p>
+            </div>
+        </div>
+
+        <div class="hero-section" id="slide-2"
+            style="background-image: url('img/slide2.jpg');">
+            <div class="hero-content">
+                <p class="subtitle">LEARN FROM THE BEST AT THE</p>
+                <h1 class="title">WORKSHOP</h1>
+                <p class="date-location">15 MARCH 2026 - SAN DIEGO, CA.</p>
+            </div>
+        </div>
+
+        <div class="hero-section" id="slide-3"
+            style="background-image: url('img/slide3.jpg');">
+            <div class="hero-content">
+                <p class="subtitle">THE GREATEST NIGHT OF</p>
+                <h1 class="title">MUSIC FESTIVAL</h1>
+                <p class="date-location">14 FEBRUARY 2026 - PRIVATE VENUE.</p>
+            </div>
+        </div>
+
+        <div class="slider-indicators">
+            <span class="dot active" data-target="slide-1">1</span>
+            <span class="dot" data-target="slide-2">2</span>
+            <span class="dot" data-target="slide-3">3</span>
+        </div>
+    </div>
+    <!--ABOUT THE EVENT-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <section class="about-event">
+        <div class="container">
+            <h2 class="section-title">VỀ CHÚNG TÔI</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-user-plus"></i></div>
+                    <div class="text-box"><h3>Dễ dàng</h3><p>Đăng ký Sự kiện</p></div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-calendar-days"></i></div>
+                    <div class="text-box"><h3>Lịch Sự kiện</h3><p>Đa dạng & Cập nhật</p></div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="text-box"><h3>Thanh toán</h3><p>An toàn & Nhanh chóng</p></div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box"><i class="fa-solid fa-bell"></i></div>
+                    <div class="text-box"><h3>Nhận Thông báo</h3><p>Kịp thời</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="event-calendar-section" id="events">
+        <div class="event-calendar-container">
+            <h2 class="section-title">CÁC SỰ KIỆN SẮP DIỄN RA</h2>
+            <table class="event-calendar-table" id="eventCalendar">
+                <tbody id="event-schedule">
+                    </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="javascript:void(0)" onclick="openAllEventsModal()" class="btn-view-all">XEM TẤT CẢ SỰ KIỆN</a>
+            </div>
+        </div>
+    </section>
+    <section class="news-section" id="news">
+        <div class="container">
+            <h2 class="section-title">TIN TỨC & ƯU ĐÃI</h2>
+            
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-img">
+                        <img src="img/news1.jpg" alt="News 1">
+                        <span class="news-tag">Sự kiện</span>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date"><i class="fa-regular fa-clock"></i> 29/12/2025</div>
+                        <h3>Công bố giải đấu Pickleball mở rộng 2026</h3>
+                        <p>Thông tin chi tiết về thể lệ, giải thưởng và cách thức đăng ký tham gia giải đấu lớn nhất năm.</p>
+                        <a href="#" class="read-more">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card ad-card">
+                    <div class="ad-badge">TÀI TRỢ</div>
+                    <img src="img/adbanner.jpg" alt="Ad Banner" class="ad-image">
+                    <div class="ad-overlay">
+                        <h3>GIẢM 50% DỤNG CỤ THỂ THAO</h3>
+                        <p>Dành riêng cho thành viên Evento</p>
+                        <a href="#" class="btn-ad">MUA NGAY</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-img">
+                        <img src="img/new2.jpg" alt="News 2">
+                        <span class="news-tag">Thông báo</span>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date"><i class="fa-regular fa-clock"></i> 29/12/2025</div>
+                        <h3>Lưu ý quan trọng cho khán giả tham dự</h3>
+                        <p>Quy định về check-in, sơ đồ chỗ ngồi và các vật dụng được phép mang vào khu vực thi đấu.</p>
+                        <a href="#" class="read-more">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="ads-contact-section">
+        <div class="container">
+            <div class="ads-banner-box">
+                <div class="ads-content-left">
+                    <div class="ads-icon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <div class="ads-text">
+                        <h3>BẠN MUỐN THƯƠNG HIỆU CỦA MÌNH XUẤT HIỆN TẠI ĐÂY?</h3>
+                        <p>Kết nối với hàng nghìn khách hàng tiềm năng tại những sự kiện lớn.</p>
+                    </div>
+                </div>
+                <div class="ads-content-right">
+                    <button class="btn-ads-contact" onclick="openModal('adsContactModal')">
+                        LIÊN HỆ HỢP TÁC NGAY <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">...</footer>
+
+    <div id="adsContactModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-btn" onclick="closeModal('adsContactModal')">&times;</span>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <i class="fa-solid fa-bullhorn" style="font-size: 40px; color: #ff3366; margin-bottom: 10px;"></i>
+                <h2 style="color: #ff3366; text-transform: uppercase;">Đăng ký tư vấn quảng cáo</h2>
+                <p style="font-size: 13px; color: #ccc;">Vui lòng để lại thông tin, chúng tôi sẽ liên hệ lại trong vòng 24h.</p>
+            </div>
+            
+            <form id="adsForm">
+                <div class="form-group">
+                    <label>Họ và tên người liên hệ <span style="color:red">*</span></label>
+                    <input type="text" id="adsName" required placeholder="VD: Nguyễn Văn A">
+                </div>
+                
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Số điện thoại <span style="color:red">*</span></label>
+                        <input type="tel" id="adsPhone" required placeholder="09xxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Email công việc <span style="color:red">*</span></label>
+                        <input type="email" id="adsEmail" required placeholder="name@company.com">
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Tên Công ty / Tổ chức <span style="color:red">*</span></label>
+                        <input type="text" id="adsCompany" required placeholder="Công ty ABC">
+                    </div>
+                    <div class="form-group">
+                        <label>Chức vụ <span style="color:red">*</span></label>
+                        <input type="text" id="adsPosition" required placeholder="Giám đốc Marketing">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nội dung cần tư vấn thêm</label>
+                    <input type="text" id="adsNote" placeholder="VD: Tôi quan tâm gói tài trợ Kim Cương...">
+                </div>
+
+                <button type="submit" class="btn-submit-reg">GỬI YÊU CẦU</button>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo"><i class="fa-solid fa-certificate fa-spin" style="color: #ff3366; font-size: 40px;"></i></div>
+                <div class="footer-text">
+                    <h4>CÔNG TY TNHH EV VIỆT NAM</h4>
+                    <p>Địa chỉ: Tầng 5, Tòa Nhà Thí Nghiệm (Trường Đại học Xây dựng Hà Nội) , Quận Hai Bà Trưng, TP. Hà Nội</p>
+                    <p>SĐT: (028) 1234 5678</p>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p>Email: evv@evviet.vn</p>
+                <div class="social-icons-footer">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('eventModal')">&times;</span>
+            
+            <h2 id="modalTitle" style="color: #ff3366; text-align: center; text-transform: uppercase;">Đăng ký tham gia</h2>
+            <p class="event-name-display" id="targetEventName" style="text-align: center; color: #ccc; margin-bottom: 20px;">...</p>
+            
+            <form id="eventRegisterForm">
+                <input type="hidden" id="regEventName">
+                
+                <div class="form-group">
+                    <label>Chọn hạng vé <span style="color:red">*</span></label>
+                    <select id="regTicketClass" required>
+                        <option value="" disabled selected>-- Vui lòng chọn --</option>
+                        <option value="Basic ($99)">A - Vé cơ bản</option>
+                        <option value="Premium ($199)">B - Vé VIP</option>
+                        <option value="Enterprise ($499)">C - Vé Doanh nghiệp</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Họ và tên <span style="color:red">*</span></label>
+                    <input type="text" id="regFullName" required placeholder="Nguyễn Văn A">
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Ngày sinh <span style="color:red">*</span></label>
+                        <input type="date" id="regDob" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số CCCD/CMND <span style="color:red">*</span></label>
+                        <input type="text" id="regIdCard" required placeholder="00123456789">
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Số điện thoại <span style="color:red">*</span></label>
+                        <input type="tel" id="regPhone" required placeholder="0987654321">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span style="color:red">*</span></label>
+                        <input type="email" id="regEmail" required placeholder="email@example.com">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit-reg">XÁC NHẬN ĐĂNG KÝ</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="myTicketsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-btn" onclick="closeModal('myTicketsModal')">&times;</span>
+            
+            <h2 style="text-align: center; color: #ff3366; margin-bottom: 20px;">LỊCH SỬ MUA VÉ</h2>
+            <div id="ticketsListContainer" style="max-height: 60vh; overflow-y: auto;">
+                <p style="text-align: center; color: #888;">Đang tải dữ liệu...</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="detailModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-btn" onclick="closeModal('detailModal')">&times;</span>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+    <div id="allEventsModal" class="modal">
+        <div class="modal-content" style="width: 95%; max-width: 1100px; height: 90vh; display: flex; flex-direction: column;">
+            <span class="close-btn" onclick="closeModal('allEventsModal')">&times;</span>
+        
+            <h2 style="text-align: center; color: #ff3366; margin-bottom: 20px; flex-shrink: 0;">TẤT CẢ SỰ KIỆN</h2>
+        
+            <div style="flex-grow: 1; overflow-y: auto; padding-right: 10px;">
+                <table class="event-calendar-table" style="width: 100%;">
+                    <tbody id="allEventsListBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="event.js"></script>
+</body>
+</html>
+
+ 

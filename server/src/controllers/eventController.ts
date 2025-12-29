@@ -1,15 +1,20 @@
 import { Request, Response } from 'express';
-// Import toàn bộ hàm từ service
 import * as eventService from '../services/eventService'; 
-// Import giao diện AuthRequest để lấy được thông tin user
 import { AuthRequest } from '../middlewares/auth.middleware';
-
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 // 1. Xem danh sách
 export const getEvents = async (req: Request, res: Response) => {
   try {
-    const events = await eventService.getAllEvents();
-    res.json(events);
+    const events = await prisma.event.findMany({
+      orderBy: {
+        createdAt: 'desc' 
+      }
+    });
+    
+    res.status(200).json(events);
   } catch (error) {
+    console.error(error); 
     res.status(500).json({ message: 'Lỗi lấy danh sách sự kiện' });
   }
 };
@@ -17,11 +22,16 @@ export const getEvents = async (req: Request, res: Response) => {
 // 2. Tạo sự kiện (Admin)
 export const createEvent = async (req: Request, res: Response) => {
   try {
-    const event = await eventService.createEvent(req.body);
-    res.status(201).json({ message: 'Tạo sự kiện thành công!', data: event });
+    const userId = (req as AuthRequest).user?.userId;
+
+    if (!userId) {
+      return res.status(403).json({ message: "Bạn chưa đăng nhập!" });
+    }
+    const newEvent = await eventService.createEvent(req.body, userId);
+    res.status(201).json({ message: "Thêm sự kiện thành công!", data: newEvent });
   } catch (error) {
-    console.log(error); // Log lỗi ra terminal để dễ sửa
-    res.status(500).json({ message: 'Lỗi tạo sự kiện' });
+    console.error(error);
+    res.status(500).json({ message: "Lỗi Server" });
   }
 };
 
@@ -29,7 +39,7 @@ export const createEvent = async (req: Request, res: Response) => {
 export const buyTicket = async (req: AuthRequest, res: Response) => {
   try {
     // Lấy ID user từ token (do middleware auth thêm vào)
-    const userId = req.user.userId; 
+    const userId = req.user?.userId; 
     // Lấy ID sự kiện từ đường dẫn URL (ví dụ: /events/1/register -> id = 1)
     const eventId = parseInt(req.params.id);
 
@@ -47,15 +57,17 @@ export const buyTicket = async (req: AuthRequest, res: Response) => {
 
 // 4. Xem vé của tôi
 export const getMyTickets = async (req: AuthRequest, res: Response) => {
-  try {
-    const userId = req.user.userId;
-    const tickets = await eventService.getTicketsByUserId(userId);
-    res.json(tickets);
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi lấy danh sách vé' });
-  }
+    try {
+        const userId = req.user?.userId;
+        if (!userId) {
+            return res.status(403).json({ message: "Không tìm thấy thông tin người dùng" });
+        }
+        const tickets = await eventService.getTicketsByUserId(userId);
+        res.json(tickets);
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi lấy danh sách vé' });
+    }
 };
-
 
 // 5. API Sửa sự kiện
 export const updateEvent = async (req: Request, res: Response) => {

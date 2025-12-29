@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { createEvent, getEvents, buyTicket, getMyTickets, updateEvent, deleteEvent } from '../controllers/eventController';
-import { authenticate } from '../middlewares/auth.middleware';
+import { authenticateToken } from '../middlewares/auth.middleware';
 import { authorizeAdmin } from '../middlewares/roleMiddleware';
 
 const router = Router();
@@ -9,19 +9,19 @@ const router = Router();
 router.get('/', getEvents);
 
 // 2. User xem vé của mình (Cần đăng nhập)
-router.get('/my-tickets', authenticate, getMyTickets);
+router.get('/my-tickets', authenticateToken, getMyTickets);
 
 // 3. User mua vé (Cần đăng nhập)
-router.post('/:id/register', authenticate, buyTicket);
+router.post('/:id/register', authenticateToken, buyTicket);
 
 // --- KHU VỰC ADMIN ---
 // 4. Tạo sự kiện
-router.post('/', authenticate, authorizeAdmin, createEvent);
+router.post('/', authenticateToken, authorizeAdmin, createEvent);
 
 // 5. Sửa sự kiện (PUT)
-router.put('/:id', authenticate, authorizeAdmin, updateEvent);
+router.put('/:id', authenticateToken, authorizeAdmin, updateEvent);
 
 // 6. Xóa sự kiện (DELETE)
-router.delete('/:id', authenticate, authorizeAdmin, deleteEvent);
+router.delete('/:id', authenticateToken, authorizeAdmin, deleteEvent);
 
 export default router;

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup - Evento</title>
+    <link rel="stylesheet" href="sl.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box login">
+            <form id="loginForm">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="loginPass" placeholder="Password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="forget-link">
+                    <a href="#">Forget Password?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p>Or login with social platform</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-google"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box signup">
+            <form id="signupForm">
+                <h1>Signup</h1>
+                <div class="input-box">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="signupPass" placeholder="Password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="signupConfirmPass" placeholder="Confirm Password" required>
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <button type="submit" class="btn">Signup</button>
+                <p>Or signup with social platform</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-google"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="toggle-box">
+    
+            <div class="toggle-panel toggle-left">
+                <h1>Welcome Back!</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn" id="login">Login</button>
+            </div>
+
+            <div class="toggle-panel toggle-right">
+                <h1>Hello, Friend!</h1>
+                <p>Don't have an account?</p>
+                <button class="btn signup-btn" id="register">Sign Up</button>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
+    <script src="sl.js"></script>
+</body>
+</html>

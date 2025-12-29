@@ -13,8 +13,7 @@ model User {
   email     String   @unique
   password  String
   role      String   @default("USER")
-  createdAt DateTime @default(now())
-
+  events       Event[]
   // Relations
   refreshTokens RefreshToken[]
   tickets       Ticket[]
@@ -32,14 +31,20 @@ model RefreshToken {
 model Event {
   id           Int      @id @default(autoincrement())
   title        String
-  description  String?
+  date         String
+  month        String
+  time         String
   location     String
-  date         DateTime
-  price        Float
-  totalTickets Int
+  speaker      String
+  image        String
+  description  String
+  price        Float    
+  totalTickets Int     
+
+  userId       Int
   createdAt    DateTime @default(now())
-  // Liên kết
-  tickets      Ticket[] // Một sự kiện có nhiều vé bán ra
+  createdBy    User     @relation(fields: [userId], references: [id])
+  tickets      Ticket[] 
 }
 
 model Ticket {
@@ -51,4 +56,17 @@ model Ticket {
   // Khóa ngoại
   user  User  @relation(fields: [userId], references: [id])
   event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+model Registration {
+  id           Int      @id @default(autoincrement())
+  userId       Int?     // Có thể null nếu cho phép khách vãng lai đăng ký
+  eventName    String   // Tên sự kiện
+  ticketClass  String
+  fullName     String
+  dob          String   // Ngày sinh
+  idCard       String   // Số CCCD
+  phone        String
+  email        String
+  createdAt    DateTime @default(now())
 }
