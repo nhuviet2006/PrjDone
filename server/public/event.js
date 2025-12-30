@@ -177,7 +177,7 @@ if (regForm) {
         };
 
         try {
-            const response = await fetch(`http://localhost:3000/api/events/${eventId}/register`, {
+            const response = await fetch(`/api/events/${eventId}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -216,7 +216,7 @@ window.openMyTicketsModal = async function() {
     container.innerHTML = `<p style="text-align: center; padding: 20px;">Đang tải danh sách vé...</p>`;
 
     try {
-        const res = await fetch("http://localhost:3000/api/events/my-tickets", {
+        const res = await fetch("/api/events/my-tickets", {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });
