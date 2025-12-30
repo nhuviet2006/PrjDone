@@ -1,3 +1,23 @@
+// --- (Thông báo nhỏ góc phải)  ---
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end', 
+    showConfirmButton: false,
+    timer: 3000, 
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+
+function showSuccess(message) {
+    Toast.fire({ icon: 'success', title: message });
+}
+
+function showError(message) {
+    Toast.fire({ icon: 'error', title: message });
+}
 // Cấu hình Quill Editor
 var quill = new Quill('#editor-container', {
     theme: 'snow',
@@ -84,16 +104,16 @@ document.getElementById('addEventForm').addEventListener('submit', async (e) => 
         const result = await res.json();
 
         if(res.ok) {
-            showToast("Thêm sự kiện thành công!");
+            showSuccess("Thêm sự kiện thành công!");
             document.getElementById('addEventForm').reset();
             quill.setContents([]); // Xóa trắng editor
             document.getElementById('previewImg').style.display = 'none';
         } else {
-            showToast("Lỗi: " + (result.message || "Không thể thêm sự kiện"));
+            showSuccess("Lỗi: " + (result.message || "Không thể thêm sự kiện"));
         }
     } catch (err) { 
         console.error(err); 
-        showToast("Lỗi kết nối Server");
+        showError("Lỗi kết nối Server");
     }
 });
 
@@ -135,22 +155,43 @@ async function loadMyEvents() {
 }
 
 // 3. XÓA SỰ KIỆN
-async function deleteEvent(id) {
-    if(!confirm("Bạn chắc chắn muốn xóa sự kiện này?")) return;
-    const token = localStorage.getItem("accessToken");
+function deleteEvent(id) {
+    // Thay thế confirm() bằng Swal.fire()
+    Swal.fire({
+        title: 'Bạn chắc chắn chứ?',
+        text: "Hành động này không thể hoàn tác!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33', 
+        cancelButtonColor: '#3085d6', 
+        confirmButtonText: 'Vâng, xóa đi!',
+        cancelButtonText: 'Hủy'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const token = localStorage.getItem("accessToken");
+            try {
+                const res = await fetch(`/api/admin/events/${id}`, { 
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
 
-    try {
-        const res = await fetch(`/api/admin/events/${id}`, { 
-            method: "DELETE",
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if(res.ok) {
-            showToast("Đã xóa!");
-            loadMyEvents();
-        } else {
-            showToast("Lỗi khi xóa");
+                if(res.ok) {
+                    // Thông báo xóa thành công
+                    Swal.fire(
+                        'Đã xóa!',
+                        'Sự kiện đã bị xóa khỏi hệ thống.',
+                        'success'
+                    );
+                    loadMyEvents(); 
+                } else {
+                    showError("Lỗi khi xóa sự kiện");
+                }
+            } catch(err) { 
+                console.error(err);
+                showError("Lỗi kết nối khi xóa");
+            }
         }
-    } catch(err) { console.error(err); }
+    });
 }
 
 // 4. CẤP QUYỀN ADMIN
@@ -158,7 +199,7 @@ async function grantAdmin() {
     const email = document.getElementById('adminEmail').value;
     const token = localStorage.getItem("accessToken");
 
-    if(!email) return showToast("Vui lòng nhập email");
+    if(!email) return showError("Vui lòng nhập email");
 
     try {
         const res = await fetch(`${API_URL}/grant-admin`, {
@@ -172,10 +213,15 @@ async function grantAdmin() {
         const data = await res.json();
         
         if(res.ok){
-            showToast(data.message);
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: data.message,
+                confirmButtonText: 'Tuyệt vời'
+            });
             document.getElementById('adminEmail').value = "";
         } else {
-            showToast(data.message || "Lỗi cấp quyền");
+            showError(data.message || "Lỗi cấp quyền");
         }
-    } catch(err) { showToast("Lỗi kết nối"); }
+    } catch(err) { showError("Lỗi kết nối"); }
 }
