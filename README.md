@@ -5,9 +5,9 @@ Website được xây dựng nhằm mục đích **quản lý và hiển thị t
 
 ## 👥 Thành viên nhóm
 - Trần Như Việt – MSSV: 0374469 - Backend
-- Sinh viên 2 – MSSV: __________
-- Sinh viên 3 – MSSV: __________
-
+- Vũ Thị Huyền Trang – MSSV: 0373469 - UX
+- Cao Thị Tâm – MSSV: 0372769 - Leader
+- Phạm Đức Phát - MSSV: 0371569 - UI
 ---
 
 ## 🛠️ Công nghệ sử dụng
@@ -24,13 +24,15 @@ Website được xây dựng nhằm mục đích **quản lý và hiển thị t
 - Xem danh sách các sự kiện đang và sắp diễn ra
 - Xem chi tiết thông tin sự kiện (tên, thời gian, địa điểm, mô tả)
 - Đăng ký tham gia sự kiện
-- Đăng nhập / đăng xuất tài khoản
+- Xem sự kiện đã đăng ký
+- Đăng nhập / đăng xuất tài khoản (Tài khoản được lưu vào Database)
 
 ### 🛡️ Quản trị viên (Admin)
 - Thêm mới sự kiện
 - Xóa sự kiện
 - Cấp quyền admin cho tài khoản khác (qua email mà tài khoản đó sử dụng để đăng ký tài khoản)
 - Các quyền khác như của User 
+*Note: Có thể truy cập trực tiếp DB để xem thông tin người dùng và số vé họ đã đăng ký: 
 
 
 ## 📂 Cấu trúc thư mục
@@ -65,3 +67,15 @@ server/
 ├── package-lock.json      
 ├── package.json           # File quản lý dự án & lệnh chạy
 └── tsconfig.json          # Cấu hình TypeScript
+## ▶️ Hướng dẫn chạy project
+### 1 Clone repository
+   git clone https://github.com/nhuviet2006/PrjDone.git
+### 2 Cài đặt thư viện
+   npm install
+### 3 Cấu hình môi trường
+   Tạo file .evn và cấu hình: 
+   PORT=3000
+   DATABASE_URL=...
+### 4 Chạy project
+   npm run dev
+
