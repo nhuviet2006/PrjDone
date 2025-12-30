@@ -74,8 +74,8 @@ server/
    npm install
 ### 3 Cấu hình môi trường
    Tạo file .evn và cấu hình: 
-   PORT=3000
-   DATABASE_URL=...
+   \nPORT=3000
+   \nDATABASE_URL=...
 ### 4 Chạy project
    npm run dev
 
