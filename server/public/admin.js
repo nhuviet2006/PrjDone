@@ -84,16 +84,16 @@ document.getElementById('addEventForm').addEventListener('submit', async (e) => 
         const result = await res.json();
 
         if(res.ok) {
-            alert("Thêm sự kiện thành công!");
+            showToast("Thêm sự kiện thành công!");
             document.getElementById('addEventForm').reset();
             quill.setContents([]); // Xóa trắng editor
             document.getElementById('previewImg').style.display = 'none';
         } else {
-            alert("Lỗi: " + (result.message || "Không thể thêm sự kiện"));
+            showToast("Lỗi: " + (result.message || "Không thể thêm sự kiện"));
         }
     } catch (err) { 
         console.error(err); 
-        alert("Lỗi kết nối Server");
+        showToast("Lỗi kết nối Server");
     }
 });
 
@@ -145,10 +145,10 @@ async function deleteEvent(id) {
             headers: { "Authorization": `Bearer ${token}` }
         });
         if(res.ok) {
-            alert("Đã xóa!");
+            showToast("Đã xóa!");
             loadMyEvents();
         } else {
-            alert("Lỗi khi xóa");
+            showToast("Lỗi khi xóa");
         }
     } catch(err) { console.error(err); }
 }
@@ -158,7 +158,7 @@ async function grantAdmin() {
     const email = document.getElementById('adminEmail').value;
     const token = localStorage.getItem("accessToken");
 
-    if(!email) return alert("Vui lòng nhập email");
+    if(!email) return showToast("Vui lòng nhập email");
 
     try {
         const res = await fetch(`${API_URL}/grant-admin`, {
@@ -172,10 +172,10 @@ async function grantAdmin() {
         const data = await res.json();
         
         if(res.ok){
-            alert(data.message);
+            showToast(data.message);
             document.getElementById('adminEmail').value = "";
         } else {
-            alert(data.message || "Lỗi cấp quyền");
+            showToast(data.message || "Lỗi cấp quyền");
         }
-    } catch(err) { alert("Lỗi kết nối"); }
+    } catch(err) { showToast("Lỗi kết nối"); }
 }

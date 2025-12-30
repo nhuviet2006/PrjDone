@@ -281,22 +281,6 @@ window.showEventDetails = function(eventStr) {
     window.openModal('detailModal');
 };
 
-function loadSpeakers() {
-    const container = document.getElementById('speakersGrid');
-    if (!container) return;
-    const speakersData = [
-        { name: "Nguyễn Phương", job: "Ngôi Sao Việt", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500" },
-        { name: "Nguyễn Nhâm", job: "Portswener", image: "https://images.unsplash.com/photo-1573496359-70142d76c220?w=500" },
-        { name: "Nguyễn Trọng", job: "Portewiener", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500" },
-        { name: "Ben Khi Nan", job: "Suitenvieter", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500" }
-    ];
-    container.innerHTML = speakersData.map(s => `
-        <div class="ev-speaker-card">
-            <div class="ev-speaker-img"><img src="${s.image}"></div>
-            <div class="ev-speaker-info"><h3>${s.name}</h3><span>${s.job}</span></div>
-        </div>
-    `).join('');
-}
 
 function checkAuthStatus() {
     const authBox = document.getElementById('authBox');
