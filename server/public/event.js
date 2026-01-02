@@ -1,6 +1,5 @@
 // ================== GLOBAL CONFIG ==================
 const API_URL = "/api/events";
-// ================== HÀM THÔNG BÁO TOAST (THAY THẾ ALERT) ==================
 function showToast(message, type = 'success') {
     // 1. Tạo container nếu chưa có
     let toastContainer = document.getElementById('toast-container');

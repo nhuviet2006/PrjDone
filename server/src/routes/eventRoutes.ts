@@ -4,7 +4,15 @@ import { authenticateToken } from '../middlewares/auth.middleware';
 import { authorizeAdmin } from '../middlewares/roleMiddleware';
 
 const router = Router();
+const uploadCloud = require('../config/cloudinary.config');
+router.post('/create-event', uploadCloud.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('Không có file nào được upload!');
+  }
+  const imageUrl = req.file.path; 
 
+  res.json({ message: 'Upload thành công', imageUrl: imageUrl });
+});
 // 1. User xem danh sách (Công khai)
 router.get('/', getEvents);
 
