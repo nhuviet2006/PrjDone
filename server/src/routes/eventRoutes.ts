@@ -2,9 +2,8 @@ import { Router } from 'express';
 import { createEvent, getEvents, buyTicket, getMyTickets, updateEvent, deleteEvent } from '../controllers/eventController';
 import { authenticateToken } from '../middlewares/auth.middleware';
 import { authorizeAdmin } from '../middlewares/roleMiddleware';
-
+import uploadCloud from '../config/cloudinary.config';
 const router = Router();
-const uploadCloud = require('../config/cloudinary.config');
 router.post('/create-event', uploadCloud.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('Không có file nào được upload!');
