@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 import * as eventService from '../services/eventService'; 
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
+
 // 1. Xem danh sách
 export const getEvents = async (req: Request, res: Response) => {
   try {
@@ -19,7 +21,7 @@ export const getEvents = async (req: Request, res: Response) => {
   }
 };
 
-// 2. Tạo sự kiện (Admin)
+// 2. Tạo sự kiện (Admin) -> ĐÃ SỬA LẠI
 export const createEvent = async (req: Request, res: Response) => {
   try {
     const userId = (req as AuthRequest).user?.userId;
@@ -27,20 +29,31 @@ export const createEvent = async (req: Request, res: Response) => {
     if (!userId) {
       return res.status(403).json({ message: "Bạn chưa đăng nhập!" });
     }
-    const newEvent = await eventService.createEvent(req.body, userId);
+
+    // --- SỬA Ở ĐÂY: Lấy dữ liệu Text + Ảnh ---
+    const eventData = { ...req.body };
+
+    // Kiểm tra xem có file ảnh được upload không
+    if (req.file) {
+        eventData.image = req.file.path; // Lấy link ảnh từ Cloudinary
+    } else {
+        return res.status(400).json({ message: "Vui lòng tải ảnh poster sự kiện!" });
+    }
+    // ------------------------------------------
+
+    const newEvent = await eventService.createEvent(eventData, userId);
     res.status(201).json({ message: "Thêm sự kiện thành công!", data: newEvent });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Lỗi Server" });
+    console.error("Lỗi tạo sự kiện:", error);
+    res.status(500).json({ message: "Lỗi Server khi tạo sự kiện" });
   }
 };
 
 // 3. Mua vé (User)
 export const buyTicket = async (req: AuthRequest, res: Response) => {
   try {
-    // Lấy ID user từ token (do middleware auth thêm vào)
     const userId = req.user?.userId; 
-    // Lấy ID sự kiện từ đường dẫn URL (ví dụ: /events/1/register -> id = 1)
     const eventId = parseInt(req.params.id);
 
     if (!userId || !eventId) {
@@ -69,11 +82,20 @@ export const getMyTickets = async (req: AuthRequest, res: Response) => {
     }
 };
 
-// 5. API Sửa sự kiện
+// 5. API Sửa sự kiện -> CẬP NHẬT THÊM ẢNH NẾU CÓ
 export const updateEvent = async (req: Request, res: Response) => {
   try {
     const eventId = parseInt(req.params.id);
-    const updatedEvent = await eventService.updateEvent(eventId, req.body);
+    
+    // Lấy data mới
+    const updateData = { ...req.body };
+
+    // Nếu admin update cả ảnh mới thì lấy link mới
+    if (req.file) {
+        updateData.image = req.file.path;
+    }
+
+    const updatedEvent = await eventService.updateEvent(eventId, updateData);
     res.json({ message: 'Cập nhật thành công!', data: updatedEvent });
   } catch (error) {
     res.status(500).json({ message: 'Lỗi khi cập nhật (Có thể ID không tồn tại)' });
@@ -87,7 +109,23 @@ export const deleteEvent = async (req: Request, res: Response) => {
     await eventService.deleteEvent(eventId);
     res.json({ message: 'Xóa sự kiện thành công!' });
   } catch (error) {
-    // Lỗi thường gặp: Không xóa được vì đã có người mua vé (Ràng buộc khóa ngoại)
     res.status(500).json({ message: 'Lỗi khi xóa sự kiện' });
+  }
+};
+
+// 7. API Lấy sự kiện của tôi (Admin)
+export const getMyCreatedEvents = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.userId; 
+
+    if (!userId) {
+      return res.status(403).json({ message: "Chưa đăng nhập hoặc token không hợp lệ" });
+    }
+
+    const events = await eventService.getEventsByCreator(userId);
+    res.json(events); 
+  } catch (error) {
+    console.error("Lỗi lấy sự kiện của tôi:", error);
+    res.status(500).json({ message: "Lỗi Server" });
   }
 };

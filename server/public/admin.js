@@ -1,3 +1,4 @@
+const API_URL = "api";
 // --- (Thông báo nhỏ góc phải)  ---
 const Toast = Swal.mixin({
     toast: true,
@@ -33,7 +34,7 @@ var quill = new Quill('#editor-container', {
     }
 });
 
-const API_URL = "/api/admin";
+
 // Chuyển Tab
 function switchTab(tabId) {
     document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
@@ -91,11 +92,9 @@ document.getElementById('addEventForm').addEventListener('submit', async (e) => 
     }
 
     try {
-        const res = await fetch(`/api/admin/events`, { 
+        const res = await fetch(`${API_URL}/events/create-event`, { 
             method: "POST",
             headers: { 
-                // KHÔNG để Content-Type: application/json
-                // Browser tự thêm multipart/form-data
                 "Authorization": `Bearer ${token}`
             },
             body: formData
@@ -124,7 +123,7 @@ async function loadMyEvents() {
     container.innerHTML = "Đang tải...";
 
     try {
-        const res = await fetch(`${API_URL}/my-events`, { 
+        const res = await fetch(`${API_URL}/events/my-events` , { 
             headers: { 
                 "Authorization": `Bearer ${token}` 
             }
@@ -170,7 +169,7 @@ function deleteEvent(id) {
         if (result.isConfirmed) {
             const token = localStorage.getItem("accessToken");
             try {
-                const res = await fetch(`/api/admin/events/${id}`, { 
+                const res = await fetch(`${API_URL}/events/${id}` , { 
                     method: "DELETE",
                     headers: { "Authorization": `Bearer ${token}` }
                 });
@@ -202,7 +201,7 @@ async function grantAdmin() {
     if(!email) return showError("Vui lòng nhập email");
 
     try {
-        const res = await fetch(`${API_URL}/grant-admin`, {
+        const res = await fetch(`${API_URL}/admin/grant-admin`, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",

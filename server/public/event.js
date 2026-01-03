@@ -1,5 +1,5 @@
 // ================== GLOBAL CONFIG ==================
-const API_URL = "/api/events";
+const API_URL = "/api" 
 // ================== HÀM THÔNG BÁO TOAST (THAY THẾ ALERT) ==================
 function showToast(message, type = 'success') {
     // 1. Tạo container nếu chưa có
@@ -55,7 +55,7 @@ async function loadEventsFromDB() {
     if (!container) return;
 
     try {
-        const res = await fetch(API_URL);
+        const res = await fetch(`${API_URL}/events` /*API_URL*/);
         const events = await res.json();
         
         container.innerHTML = ""; 
@@ -119,7 +119,7 @@ window.openAllEventsModal = async function() {
     container.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px;">Đang tải dữ liệu...</td></tr>`;
 
     try {
-        const res = await fetch(API_URL); 
+        const res = await fetch(`${API_URL}/events`); 
         const events = await res.json();
 
         if (!events || events.length === 0) {
@@ -177,7 +177,7 @@ if (regForm) {
         };
 
         try {
-            const response = await fetch(`/api/events/${eventId}/register`, {
+            const response = await fetch(`${API_URL}/events/${eventId}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -216,7 +216,7 @@ window.openMyTicketsModal = async function() {
     container.innerHTML = `<p style="text-align: center; padding: 20px;">Đang tải danh sách vé...</p>`;
 
     try {
-        const res = await fetch("/api/events/my-tickets", {
+        const res = await fetch(`${API_URL}/events/my-tickets`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });
