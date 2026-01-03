@@ -1,4 +1,4 @@
-const API_URL = "/api/auth";
+const API_URL = "/api";
 const container = document.querySelector('.container');
 const registerBtn = document.getElementById('register');
 const loginBtn = document.getElementById('login');
@@ -62,10 +62,8 @@ if (loginForm) {
             return;
         }
 
-        try {
-            console.log(`Đang gọi API: ${API_URL}/login`); 
-            
-            const response = await fetch(`${API_URL}/login`, {
+        try {            
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -121,10 +119,8 @@ if (signupForm) {
             return;
         }
 
-        try {
-            console.log(`Đang gọi API: ${API_URL}/register`);
-            
-            const response = await fetch(`${API_URL}/register`, {
+        try {            
+            const response = await fetch(`${API_URL}/auth/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ fullName, email, password })
