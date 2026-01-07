@@ -32,7 +32,6 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     res.status(403).json({ message: 'Token không hợp lệ hoặc đã hết hạn' });
   }
 };
-// Trong file auth.middleware.ts
 export const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = (req as AuthRequest).user?.userId;
@@ -41,14 +40,13 @@ export const verifyAdmin = async (req: Request, res: Response, next: NextFunctio
       return res.status(401).json({ message: "Không xác định được người dùng!" });
     }
 
-    // Soi thẳng vào DB để lấy quyền mới nhất
     const user = await prisma.user.findUnique({
       where: { id: Number(userId) },
       select: { role: true }
     });
 
     if (user && user.role.toLowerCase() === 'admin') {
-      next(); // DB bảo là Admin thì cho qua
+      next(); 
     } else {
       return res.status(403).json({ message: "Lỗi: Chỉ Admin mới được quyền này!" });
     }

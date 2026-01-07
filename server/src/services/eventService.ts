@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// 1. Lấy danh sách tất cả sự kiện (Sắp xếp theo ngày tạo mới nhất)
+// 1. Lấy danh sách tất cả sự kiện 
 export const getAllEvents = async () => {
   return await prisma.event.findMany({
     orderBy: { createdAt: 'desc' }, 
@@ -27,7 +27,7 @@ export const createEvent = async (data: any, userId: number) => {
       month: data.month,
       time: data.time,
       speaker: data.speaker,
-      image: data.image, // Link ảnh từ Cloudinary
+      image: data.image, 
       
       createdBy: {
         connect: { id: userId }
@@ -38,7 +38,6 @@ export const createEvent = async (data: any, userId: number) => {
 
 // 3. Mua vé (Đăng ký sự kiện)
 export const registerEvent = async (userId: number, eventId: number) => {
-  // Kiểm tra xem user đã mua vé sự kiện này chưa 
   const existingTicket = await prisma.ticket.findFirst({
     where: {
       userId: userId,
@@ -83,7 +82,7 @@ export const getTicketsByUserId = async (userId: number) => {
     });
 };
 
-// 5. Cập nhật sự kiện (Đã bổ sung đầy đủ các trường)
+// 5. Cập nhật sự kiện 
 export const updateEvent = async (id: number, data: any) => {
   return await prisma.event.update({
     where: { id: id },
@@ -100,7 +99,7 @@ export const updateEvent = async (id: number, data: any) => {
       month: data.month,
       time: data.time,
       speaker: data.speaker,
-      image: data.image // Cho phép cập nhật ảnh mới
+      image: data.image
     }
   });
 };

@@ -21,7 +21,7 @@ export const getEvents = async (req: Request, res: Response) => {
   }
 };
 
-// 2. Tạo sự kiện (Admin) -> ĐÃ SỬA LẠI
+// 2. Tạo sự kiện (Admin) 
 export const createEvent = async (req: Request, res: Response) => {
   try {
     const userId = (req as AuthRequest).user?.userId;
@@ -30,7 +30,7 @@ export const createEvent = async (req: Request, res: Response) => {
       return res.status(403).json({ message: "Bạn chưa đăng nhập!" });
     }
 
-    // --- SỬA Ở ĐÂY: Lấy dữ liệu Text + Ảnh ---
+    // Lấy dữ liệu Text + Ảnh ---
     const eventData = { ...req.body };
 
     // Kiểm tra xem có file ảnh được upload không
@@ -39,7 +39,6 @@ export const createEvent = async (req: Request, res: Response) => {
     } else {
         return res.status(400).json({ message: "Vui lòng tải ảnh poster sự kiện!" });
     }
-    // ------------------------------------------
 
     const newEvent = await eventService.createEvent(eventData, userId);
     res.status(201).json({ message: "Thêm sự kiện thành công!", data: newEvent });
@@ -82,7 +81,7 @@ export const getMyTickets = async (req: AuthRequest, res: Response) => {
     }
 };
 
-// 5. API Sửa sự kiện -> CẬP NHẬT THÊM ẢNH NẾU CÓ
+// 5. API Sửa sự kiện 
 export const updateEvent = async (req: Request, res: Response) => {
   try {
     const eventId = parseInt(req.params.id);
@@ -90,7 +89,6 @@ export const updateEvent = async (req: Request, res: Response) => {
     // Lấy data mới
     const updateData = { ...req.body };
 
-    // Nếu admin update cả ảnh mới thì lấy link mới
     if (req.file) {
         updateData.image = req.file.path;
     }

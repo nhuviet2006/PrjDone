@@ -48,7 +48,7 @@ const loginForm = document.getElementById('loginForm');
 if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault(); 
-        console.log("Đã bắt được sự kiện click Login!"); // [DEBUG 1]
+        console.log("Đã bắt được sự kiện click Login!"); 
 
         const emailInp = document.getElementById('loginEmail');
         const passInp = document.getElementById('loginPass');
@@ -72,7 +72,7 @@ if (loginForm) {
             const data = await response.json();
             console.log("Server phản hồi:", data); 
 
-            if (response.ok) { // Status 200-299
+            if (response.ok) { 
                 showToast("Đăng nhập thành công!", "success");
                 
                 // Lưu Token
@@ -132,7 +132,6 @@ if (signupForm) {
             if (response.status === 201 || response.ok) {
                 showToast("Đăng ký thành công! Hãy đăng nhập.", "success");
                 
-                // Xóa dữ liệu trên form
                 signupForm.reset();
                 
                 // Chuyển sang màn hình Login sau 1.5s

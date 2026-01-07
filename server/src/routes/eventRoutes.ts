@@ -21,13 +21,13 @@ router.post(
   '/create-event', 
   authenticateToken, 
   authorizeAdmin, 
-  uploadCloud.single('image'), // <--- DÙNG uploadCloud Ở ĐÂY
+  uploadCloud.single('image'),
   eventController.createEvent
 );
 router.get(
   '/my-events', 
   authenticateToken, 
-  authorizeAdmin, // Chỉ admin mới có sự kiện đã tạo
+  authorizeAdmin, 
   eventController.getMyCreatedEvents
 );
 // 5. Sửa sự kiện (PUT)

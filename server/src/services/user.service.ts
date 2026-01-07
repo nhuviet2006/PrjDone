@@ -15,7 +15,7 @@ export const promoteToAdmin = async (email: string) => {
   });
 };
 
-// Hàm thu hồi quyền Admin (chuyển về USER)
+// Hàm thu hồi quyền Admin (CHƯA HOÀN THÀNH)
 export const demoteToUser = async (email: string) => {
   // 1. Kiểm tra tồn tại
   const user = await prisma.user.findUnique({ where: { email } });

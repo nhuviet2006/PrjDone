@@ -16,9 +16,9 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'evento-project', // Tên folder trên Cloudinary
-    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'], // Định dạng cho phép
-  } as any // "as any" để tránh lỗi typescript nhỏ
+    folder: 'evento-project', 
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'], 
+  } as any 
 });
 
 const uploadCloud = multer({ storage });

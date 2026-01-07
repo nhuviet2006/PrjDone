@@ -1,4 +1,3 @@
-// File: src/controllers/adminController.ts
 import { Request, Response } from "express";
 import { prisma } from "../utils/db";
 import { AuthRequest } from "../middlewares/auth.middleware";
@@ -6,14 +5,12 @@ import { AuthRequest } from "../middlewares/auth.middleware";
 // 1. LẤY DANH SÁCH SỰ KIỆN CỦA TÔI
 export const getMyEvents = async (req: Request, res: Response) => {
   try {
-    // SỬA: Lấy đúng biến userId từ Token
     const userId = (req as any).user?.userId; 
     
     if(!userId) return res.sendStatus(403); 
 
     const events = await prisma.event.findMany({
       where: { 
-        // Trong bảng Event, cột lưu người tạo là userId
         userId: Number(userId) 
       },
       orderBy: { createdAt: 'desc' }
@@ -34,7 +31,6 @@ export const deleteEvent = async (req: Request, res: Response) => {
 
     const event = await prisma.event.findUnique({ where: { id: eventId } });
     
-    // Kiểm tra quyền sở hữu
     if (!event || event.userId !== userId) {
       return res.status(403).json({ message: "Bạn không có quyền xóa sự kiện này" });
     }
@@ -50,9 +46,7 @@ export const deleteEvent = async (req: Request, res: Response) => {
 // 3. THÊM SỰ KIỆN MỚI
 export const createEvent = async (req: Request, res: Response) => {
   try {
-    // --- CHỐT: Lấy userId từ Token ---
     const userId = (req as any).user?.userId;
-    // --------------------------------
 
     if (!userId) {
         return res.status(403).json({ message: "Chưa đăng nhập hoặc Token lỗi!" });
@@ -78,7 +72,6 @@ export const createEvent = async (req: Request, res: Response) => {
         totalTickets: Number(totalTickets), 
         price: Number(price),
         
-        // Connect tới User có id = userId lấy từ token
         createdBy: { connect: { id: Number(userId) } } 
       }
     });
