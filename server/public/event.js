@@ -209,7 +209,7 @@ if (regForm) {
 
 window.openMyTicketsModal = async function() {
     const token = localStorage.getItem("accessToken");
-    if (!token) return showToast("Vui lòng đăng nhập!");
+    if (!token) return showToast("Vui lòng đăng nhập!", "error"); // Thêm type error cho đẹp
 
     window.openModal('myTicketsModal');
     const container = document.getElementById("ticketsListContainer");
@@ -232,16 +232,21 @@ window.openMyTicketsModal = async function() {
         }
 
         container.innerHTML = tickets.map(t => {
-            const ev = t.event;
+            const ev = t.event; 
             const purchasedDate = new Date(t.purchasedAt).toLocaleDateString('vi-VN');
             const imgSrc = ev.image || 'https://via.placeholder.com/80';
+            
             
             return `
                 <div style="display: flex; gap: 15px; background: #0a0a0a; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #333;">
                     <img src="${imgSrc}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
                     <div style="flex: 1;">
                         <h4 style="color: #ff3366; margin-bottom: 5px;">${ev.title}</h4>
-                        <p style="font-size: 13px; color: #ccc; margin-bottom: 3px;"><i class="fa-solid fa-ticket"></i> ${t.ticketClass}</p>
+                        
+                        <p style="font-size: 13px; color: #ccc; margin-bottom: 3px;">
+                            <i class="fa-solid fa-location-dot"></i> ${ev.location || 'Chưa cập nhật địa điểm'}
+                        </p>
+                        
                         <p style="font-size: 12px; color: #888;">Ngày mua: ${purchasedDate}</p>
                     </div>
                     <div style="display: flex; align-items: center;">
