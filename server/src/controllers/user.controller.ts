@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-// Import từ file service
 import * as userService from '../services/user.service'; 
 
 export const promoteUser = async (req: Request, res: Response) => {
@@ -18,7 +17,6 @@ export const promoteUser = async (req: Request, res: Response) => {
   }
 };
 
-// API Thu hồi quyền Admin
 export const revokeAdmin = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;

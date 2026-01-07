@@ -1,8 +1,6 @@
-// ================== GLOBAL CONFIG ==================
 const API_URL = "/api" 
-// ================== HÀM THÔNG BÁO TOAST (THAY THẾ ALERT) ==================
 function showToast(message, type = 'success') {
-    // 1. Tạo container nếu chưa có
+    // 1. Tạo container
     let toastContainer = document.getElementById('toast-container');
     if (!toastContainer) {
         toastContainer = document.createElement('div');
@@ -27,7 +25,7 @@ function showToast(message, type = 'success') {
     toastContainer.appendChild(toast);
     setTimeout(() => {
         toast.remove();
-    }, 4000); // Thời gian khớp với animation CSS
+    }, 4000); 
 }
 
 window.openModal = function(modalId) {
@@ -55,7 +53,7 @@ async function loadEventsFromDB() {
     if (!container) return;
 
     try {
-        const res = await fetch(`${API_URL}/events` /*API_URL*/);
+        const res = await fetch(`${API_URL}/events` );
         const events = await res.json();
         
         container.innerHTML = ""; 
@@ -209,7 +207,7 @@ if (regForm) {
 
 window.openMyTicketsModal = async function() {
     const token = localStorage.getItem("accessToken");
-    if (!token) return showToast("Vui lòng đăng nhập!", "error"); // Thêm type error cho đẹp
+    if (!token) return showToast("Vui lòng đăng nhập!", "error"); 
 
     window.openModal('myTicketsModal');
     const container = document.getElementById("ticketsListContainer");
@@ -356,13 +354,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     if (dots.length) dots.forEach(dot => dot.addEventListener("click", () => showSlide(dot.dataset.target)));
 });
-// XỬ LÝ FORM LIÊN HỆ QUẢNG CÁO 
 const adsForm = document.getElementById("adsForm");
 if (adsForm) {
     adsForm.addEventListener("submit", (e) => {
         e.preventDefault();
         
-        // Lấy dữ liệu (để sau này gửi API)
         const data = {
             name: document.getElementById("adsName").value,
             phone: document.getElementById("adsPhone").value,
@@ -374,7 +370,6 @@ if (adsForm) {
 
         console.log("Dữ liệu liên hệ quảng cáo:", data);
 
-        // Giả lập gửi thành công
         showToast("✅ Cảm ơn bạn đã liên hệ! Chúng tôi đã nhận được thông tin và sẽ gọi lại cho bạn (SĐT: " + data.phone + ") sớm nhất.");
         
         adsForm.reset();

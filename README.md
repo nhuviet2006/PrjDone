@@ -75,7 +75,11 @@ server/
 ### 3 Cấu hình môi trường
    Tạo file .evn và cấu hình: 
    - PORT=3000
-   - DATABASE_URL=...
+   - DATABASE_URL=... 
+   - JWT_SECRET=...
 ### 4 Chạy project
    npm run dev
+
+### TRUY CẬP DATABASE: 
+   npx prisma studio 
 

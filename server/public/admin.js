@@ -49,7 +49,7 @@ function switchTab(tabId) {
     if(tabId === 'list-tab') loadMyEvents();
 }
 
-// Preview Ảnh khi chọn file từ máy (MỚI)
+// Preview Ảnh khi chọn file từ máy 
 function previewFile() {
     const fileInput = document.getElementById('eventImageFile');
     const preview = document.getElementById('previewImg');
@@ -155,7 +155,6 @@ async function loadMyEvents() {
 
 // 3. XÓA SỰ KIỆN
 function deleteEvent(id) {
-    // Thay thế confirm() bằng Swal.fire()
     Swal.fire({
         title: 'Bạn chắc chắn chứ?',
         text: "Hành động này không thể hoàn tác!",
@@ -175,7 +174,6 @@ function deleteEvent(id) {
                 });
 
                 if(res.ok) {
-                    // Thông báo xóa thành công
                     Swal.fire(
                         'Đã xóa!',
                         'Sự kiện đã bị xóa khỏi hệ thống.',
