@@ -1,8 +1,9 @@
 import { Router } from 'express';
+import * as eventController from '../controllers/eventController';
 import { createEvent, getEvents, buyTicket, getMyTickets, updateEvent, deleteEvent } from '../controllers/eventController';
 import { authenticateToken } from '../middlewares/auth.middleware';
 import { authorizeAdmin } from '../middlewares/roleMiddleware';
-
+import uploadCloud from '../config/cloudinary.config';
 const router = Router();
 
 // 1. User xem danh sách (Công khai)
@@ -16,11 +17,27 @@ router.post('/:id/register', authenticateToken, buyTicket);
 
 // --- KHU VỰC ADMIN ---
 // 4. Tạo sự kiện
-router.post('/', authenticateToken, authorizeAdmin, createEvent);
-
+router.post(
+  '/create-event', 
+  authenticateToken, 
+  authorizeAdmin, 
+  uploadCloud.single('image'), // <--- DÙNG uploadCloud Ở ĐÂY
+  eventController.createEvent
+);
+router.get(
+  '/my-events', 
+  authenticateToken, 
+  authorizeAdmin, // Chỉ admin mới có sự kiện đã tạo
+  eventController.getMyCreatedEvents
+);
 // 5. Sửa sự kiện (PUT)
-router.put('/:id', authenticateToken, authorizeAdmin, updateEvent);
-
+router.put(
+  '/:id', 
+  authenticateToken, 
+  authorizeAdmin, 
+  uploadCloud.single('image'), 
+  eventController.updateEvent
+);
 // 6. Xóa sự kiện (DELETE)
 router.delete('/:id', authenticateToken, authorizeAdmin, deleteEvent);
 
