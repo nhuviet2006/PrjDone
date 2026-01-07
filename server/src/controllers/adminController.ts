@@ -99,12 +99,13 @@ export const grantAdmin = async (req: Request, res: Response) => {
 
     if (!user) return res.status(404).json({ message: "Không tìm thấy Email này" });
 
+    // Cập nhật Database
     await prisma.user.update({
       where: { email },
-      data: { role: 'admin' } 
+      data: { role: 'admin' }
     });
 
-    res.json({ message: `Đã cấp quyền Admin cho ${email}` });
+    res.json({ message: `Đã cấp quyền Admin cho ${email} thành công!` });
   } catch (error) {
     res.status(500).json({ message: "Lỗi Server" });
   }
