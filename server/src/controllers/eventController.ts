@@ -51,6 +51,7 @@ export const createEvent = async (req: Request, res: Response) => {
 };
 
 // 3. Mua vé (User)
+
 export const buyTicket = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user?.userId; 
@@ -61,10 +62,15 @@ export const buyTicket = async (req: AuthRequest, res: Response) => {
     }
 
     const ticket = await eventService.registerEvent(userId, eventId);
+    
     res.status(201).json({ message: 'Đăng ký vé thành công!', data: ticket });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Lỗi đăng ký vé (Có thể bạn đã mua rồi hoặc sự kiện không tồn tại)' });
+
+  } catch (error: any) {
+    console.log("Lỗi mua vé:", error.message);
+    
+    res.status(400).json({ 
+        message: error.message || 'Lỗi khi đăng ký vé' 
+    });
   }
 };
 

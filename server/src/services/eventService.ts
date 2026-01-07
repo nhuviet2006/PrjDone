@@ -38,7 +38,6 @@ export const createEvent = async (data: any, userId: number) => {
 
 // 3. Mua vé (Đăng ký sự kiện)
 export const registerEvent = async (userId: number, eventId: number) => {
-  // Kiểm tra xem user đã mua vé sự kiện này chưa 
   const existingTicket = await prisma.ticket.findFirst({
     where: {
       userId: userId,
@@ -47,14 +46,39 @@ export const registerEvent = async (userId: number, eventId: number) => {
   });
 
   if (existingTicket) {
-    throw new Error("Bạn đã đăng ký sự kiện này rồi!");
+    throw new Error("Bạn đã đăng ký sự kiện này rồi! Không thể mua thêm.");
   }
 
-  return await prisma.ticket.create({
-    data: {
-      userId: userId,
-      eventId: eventId
-    }
+  const event = await prisma.event.findUnique({
+    where: { id: eventId }
+  });
+
+  if (!event) {
+    throw new Error("Sự kiện không tồn tại!");
+  }
+
+  if (event.totalTickets <= 0) {
+    throw new Error("Rất tiếc, sự kiện đã hết vé!");
+  }
+
+  return await prisma.$transaction(async (tx) => {
+    const newTicket = await tx.ticket.create({
+      data: {
+        userId: userId,
+        eventId: eventId
+      }
+    });
+
+    await tx.event.update({
+      where: { id: eventId },
+      data: {
+        totalTickets: {
+          decrement: 1 
+        }
+      }
+    });
+
+    return newTicket;
   });
 };
 

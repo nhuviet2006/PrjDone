@@ -578,3 +578,6 @@ ul { list-style: none; }
 @keyframes fadeOut {
     to { opacity: 0; transform: translateX(100%); }
 }
+div:where(.swal2-container) {
+    z-index: 99999 !important;
+}

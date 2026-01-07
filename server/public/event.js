@@ -177,33 +177,69 @@ if (regForm) {
         };
 
         try {
-            const response = await fetch(`${API_URL}/events/${eventId}/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(formData)
-            });
+    const response = await fetch(`${API_URL}/events/${eventId}/register`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
 
-            const result = await response.json();
+    const result = await response.json();
 
-            if (response.ok) {
-                showToast("🎉 Chúc mừng! Đăng ký thành công, chúng tôi sẽ sớm liên hệ với bạn.");
+    if (response.ok) {
+        // --- 1. THÀNH CÔNG (Giao diện đẹp) ---
+        Swal.fire({
+            icon: 'success',
+            title: 'Đăng ký thành công!',
+            text: 'Chúc mừng! Bạn đã sở hữu vé tham gia sự kiện này.',
+            confirmButtonText: 'Tuyệt vời',
+            confirmButtonColor: '#3085d6',
+            backdrop: `
+                rgba(0,0,123,0.4)
+                left top
+                no-repeat
+            `
+        }).then((res) => {
+            // Chỉ khi người dùng bấm nút "Tuyệt vời" hoặc đóng thông báo thì mới làm các việc sau:
+            if (res.isConfirmed || res.isDismissed) {
                 regForm.reset(); 
-                window.closeModal('eventModal');
                 
+                // Đóng modal đăng ký
+                if (window.closeModal) {
+                    window.closeModal('eventModal');
+                }
+                
+                // Nếu đang mở modal lịch sử vé thì tải lại danh sách
                 const historyModal = document.getElementById("myTicketsModal");
                 if (historyModal && historyModal.classList.contains("show")) {
                     openMyTicketsModal();
                 }
-            } else {
-                showToast("Lỗi: " + (result.message || "Đăng ký thất bại"));
             }
-        } catch (error) {
-            console.error("Register Error:", error);
-            showToast("Lỗi kết nối server!");
-        }
+        });
+
+    } else {
+        // --- 2. LỖI TỪ SERVER (Hết vé, Đã mua rồi...) ---
+        Swal.fire({
+            icon: 'error',
+            title: 'Rất tiếc...',
+            text: result.message || "Đăng ký thất bại", // Hiện đúng lý do server trả về
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Đã hiểu'
+        });
+    }
+
+} catch (error) {
+    console.error("Register Error:", error);
+    // --- 3. LỖI MẤT MẠNG / SERVER DOWN ---
+    Swal.fire({
+        icon: 'warning',
+        title: 'Mất kết nối',
+        text: 'Không thể kết nối đến Server. Vui lòng kiểm tra mạng!',
+        confirmButtonText: 'Thử lại sau'
+    });
+}
     });
 }
 
